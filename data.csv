@@ -1,0 +1,55 @@
+First language,State,Region,Category,1991,2001,2011,1991_Per,2001_Per,2011_Per
+Tamil,Tamil Nadu,Non-Hindi South,Monolinguals,40906120,45890773,49687022,84.5,82.2,77.9
+Tamil,Tamil Nadu,Non-Hindi South,Atleast Bilinguals,7528624,9908143,14066975,15.5,17.8,22.1
+Tamil,Tamil Nadu,Non-Hindi South,Hindi,245208,403882,882710,0.5,0.7,1.4
+Tamil,Tamil Nadu,Non-Hindi South,English,6559929,8448219,11766269,13.5,15.1,18.5
+MALAYALAM,Kerala,Non-Hindi South,Monolinguals,20945968,23048731,24832842,74.6,74.8,76.6
+MALAYALAM,Kerala,Non-Hindi South,Atleast Bilinguals,7150408,3378502,7580371,25.4,11,23.4
+MALAYALAM,Kerala,Non-Hindi South,Hindi,5189328,4237974,2929361,18.5,13.8,9
+MALAYALAM,Kerala,Non-Hindi South,English,6594148,6893409,6573645,23.5,22.4,20.3
+MARATHI,Maharashtra,"Non-Hindi,Non-South",Monolinguals,43326623,40314235,42284503,74.8,60.5,54.6
+MARATHI,Maharashtra,"Non-Hindi,Non-South",Atleast Bilinguals,14568216,26329707,35176669,25.2,39.5,45.4
+MARATHI,Maharashtra,"Non-Hindi,Non-South",Hindi,20694428,25461172,33734859,35.7,38.2,43.6
+MARATHI,Maharashtra,"Non-Hindi,Non-South",English,7001385,9556078,11040606,12.1,14.3,14.3
+Telugu,Andhra Pradesh,Non-Hindi South,Monolinguals,49018963,52318057,58022781,87,81.9,82.1
+Telugu,Andhra Pradesh,Non-Hindi South,Atleast Bilinguals,7356792,11586734,12644999,13,18.1,17.9
+Telugu,Andhra Pradesh,Non-Hindi South,English,6229278,9070838,9465846,11,14.2,13.4
+Telugu,Andhra Pradesh,Non-Hindi South,Hindi,4531018,7020978,6172805,8,11,8.7
+Gujarati,Gujarat,"Non-Hindi,Non-South",Monolinguals,29607447,28649532,31281194,78.3,67,60.2
+Gujarati,Gujarat,"Non-Hindi,Non-South",Atleast Bilinguals,8185486,14118854,20677536,21.7,33,39.8
+Gujarati,Gujarat,"Non-Hindi,Non-South",Hindi,8185486,13794663,20236007,21.7,32.3,38.9
+Gujarati,Gujarat,"Non-Hindi,Non-South",English,3617604,4987571,6653637,9.6,11.7,12.8
+Kannada,Karnataka,Non-Hindi South,Monolinguals,23798072,26158354,31259340,79.9,75.1,76.9
+Kannada,Karnataka,Non-Hindi South,Atleast Bilinguals,5986932,8679681,9391750,20.1,24.9,23.1
+Kannada,Karnataka,Non-Hindi South,English,3598146,4574915,4063169,12.1,13.1,10
+Kannada,Karnataka,Non-Hindi South,Hindi,2552678,4165957,3470850,8.6,12,8.5
+Hindi,Bihar,Hindi_Belt,Monolinguals,63051472,57783926,76873869,90.3,95.3,95.3
+Hindi,Bihar,Hindi_Belt,Atleast Bilinguals,6794507,2851358,3824597,9.7,4.7,4.7
+Hindi,Bihar,Hindi_Belt,English,6096047,2122512,1944491,8.7,3.5,2.4
+odia,Odisha,"Non-Hindi,Non-South",Monolinguals,22510368,23515337,25861929,85.9,76.9,74.5
+odia,Odisha,"Non-Hindi,Non-South",Atleast Bilinguals,3688978,7048170,8850241,14.1,23.1,25.5
+odia,Odisha,"Non-Hindi,Non-South",English,3426985,5980661,6655586,13.1,19.6,19.2
+odia,Odisha,"Non-Hindi,Non-South",Hindi,2636790,4492452,5786689,10.1,14.7,16.7
+Bengali,West Bengal,"Non-Hindi,Non-South",Monolinguals,52912952,57394468,70403464,90.4,83.9,89.5
+Bengali,West Bengal,"Non-Hindi,Non-South",Atleast Bilinguals,5628567,10974787,8295388,9.6,16.1,10.5
+Bengali,West Bengal,"Non-Hindi,Non-South",English,5023974,9030392,4925660,8.6,13.2,6.3
+Bengali,West Bengal,"Non-Hindi,Non-South",Hindi,2380016,4674622,4782240,4.1,6.8,6.1
+Hindi,Madhya Pradesh,Hindi_Belt,Monolinguals,52861145,48283596,59807653,93.4,91.7,93
+Hindi,Madhya Pradesh,Hindi_Belt,Atleast Bilinguals,3757945,4375091,4517310,6.6,8.3,7
+Hindi,Madhya Pradesh,Hindi_Belt,English,3757945,3723078,3488231,6.6,7.1,5.4
+Hindi,Uttar Pradesh,Hindi_Belt,Monolinguals,115579492,135734624,171969085,92.2,89.4,91.5
+Hindi,Uttar Pradesh,Hindi_Belt,Atleast Bilinguals,9769000,16035507,16009970,7.8,10.6,8.5
+Hindi,Uttar Pradesh,Hindi_Belt,English,9101384,13715482,11841998,7.3,9,6.3
+Hindi,Rajasthan,Hindi_Belt,Monolinguals,36573949,48588697,57774999,92.8,94.5,94.3
+Hindi,Rajasthan,Hindi_Belt,Atleast Bilinguals,2837019,2818519,3499275,7.2,5.5,5.7
+Hindi,Rajasthan,Hindi_Belt,English,2837019,2367845,2572419,7.2,4.6,4.2
+Punjabi,Punjab,"Non-Hindi,Non-South",Monolinguals,12480000,11784075,13053880,66.7,52.8,52.4
+Punjabi,Punjab,"Non-Hindi,Non-South",Atleast Bilinguals,6224461,10550294,11864005,33.3,47.2,47.6
+Punjabi,Punjab,"Non-Hindi,Non-South",English,4255294,7249605,7761505,22.8,32.5,31.1
+Punjabi,Punjab,"Non-Hindi,Non-South",Hindi,6027019,10174643,11434985,32.2,45.6,45.9
+Hindi,Haryana,Hindi_Belt,Monolinguals,11977578,15233754,18591722,79.9,82.5,83.3
+Hindi,Haryana,Hindi_Belt,Atleast Bilinguals,3004831,3227089,3730435,20.1,17.5,16.7
+Hindi,Haryana,Hindi_Belt,English,2624719,2944320,3267122,17.5,15.9,14.6
+Hindi,Himachal Pradesh,Hindi_Belt,Monolinguals,3513473,4958408,5396328,76.5,91.7,91.5
+Hindi,Himachal Pradesh,Hindi_Belt,Atleast Bilinguals,1082142,451350,499201,23.5,8.3,8.5
+Hindi,Himachal Pradesh,Hindi_Belt,English,966817,409451,434466,21,7.6,7.4
