@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Patterns in India Over Time</title>
+    <link rel="stylesheet" href="styles1.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <h1>Language Patterns in India Over Time</h1>
+        <div class="logo-container">
+            <img src="TH-DATA-LOGO.svg" alt="TH Data Logo" class="inverted-logo">
+        </div>
+    </header>
+
+    <div id="controls">
+        <div class="control-label">Category:</div>
+        <div id="category-buttons" class="button-group"></div>
+
+        <div class="control-label">Regions:</div>
+        <div id="region-buttons" class="button-group"></div>
+
+        <div id="state-container" class="button-group scrollable"></div>
+        <button id="reset-button">Reset</button>
+    </div>
+
+    <div id="chart-container">
+        <svg id="chart"></svg>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <script src="script1.js"></script>
+</body>
+</html>

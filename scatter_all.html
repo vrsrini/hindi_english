@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Proficiency vs HDI Comparison</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        
+        .app-header {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .inverted-logo {
+            width: 200px;
+            height: auto;
+            filter: invert(100%) brightness(110%) contrast(120%);
+            transition: transform 0.3s;
+        }
+
+        .inverted-logo:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .button-group {
+            margin: 30px auto;
+            display: inline-block;
+        }
+        
+        button {
+            padding: 12px 25px;
+            margin: 8px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        button.active {
+            transform: scale(1.05);
+        }
+        
+        .chart-wrapper {
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .dot {
+            stroke: white;
+            stroke-width: 1.5px;
+        }
+        
+        .trend-line {
+            stroke: #333;
+            stroke-width: 2px;
+            stroke-dasharray: 4;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: none;
+            font-size: 14px;
+            pointer-events: none;
+        }
+        
+        .chart-title {
+            margin-top: 15px;
+            font-size: 1.3em;
+            color: #333;
+        }
+        
+        .corr-text {
+            font-size: 14px;
+            fill: #666;
+            font-style: italic;
+            text-anchor: end;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <h1>Language Proficiency vs HDI</h1>
+        <div class="logo-container">
+            <img src="TH-DATA-LOGO.svg" alt="TH Data Logo" class="inverted-logo">
+        </div>
+    </header>
+    
+    <div class="button-group">
+        <button data-region="All" class="active" style="background-color: #666">All Regions</button>
+        <button data-region="Non-Hindi, South" style="background-color: #ff6b6b">Non-Hindi South</button>
+        <button data-region="Non-Hindi, Non-South" style="background-color: #4ecdc4">Non-Hindi Non-South</button>
+        <button data-region="Hindi_Belt" style="background-color: #45b7d1">Hindi Belt</button>
+    </div>
+    
+    <div class="chart-wrapper">
+        <div class="chart-container">
+            <svg id="english-chart"></svg>
+            <div class="chart-title">English Proficiency vs HDI</div>
+        </div>
+        
+        <div class="chart-container">
+            <svg id="hindi-chart"></svg>
+            <div class="chart-title">Hindi Proficiency vs HDI</div>
+        </div>
+    </div>
+
+    <div class="tooltip"></div>
+
+    <script>
+        const regionColors = {
+            "Non-Hindi, South": "#ff6b6b",
+            "Non-Hindi, Non-South": "#4ecdc4",
+            "Hindi_Belt": "#45b7d1"
+        };
+
+        Promise.all([
+            d3.csv("lang census - English HDI.csv"),
+            d3.csv("lang census - Hindi HDI.csv")
+        ]).then(([englishData, hindiData]) => {
+            // Process English data
+            englishData.forEach(d => {
+                d.Percent = +d["English_%"];
+                d.HDI = +d.HDI;
+                d.Population = +d.Population_2011.replace(/,/g, '') / 1e6;
+                d.Region = d.Region.trim();
+            });
+
+            // Process Hindi data
+            hindiData.forEach(d => {
+                d.Percent = +d["Hindi_%"];
+                d.HDI = +d.HDI;
+                d.Population = +d.Population_2011.replace(/,/g, '') / 1e6;
+                d.Region = d.Region.trim();
+            });
+
+            const margin = {top: 20, right: 30, bottom: 60, left: 60};
+            const width = 600 - margin.left - margin.right;
+            const height = 450 - margin.top - margin.bottom;
+
+            // Chart configuration
+            const charts = [
+                {
+                    id: "english-chart",
+                    data: englishData,
+                    xLabel: "English Speaking Population (%)",
+                    corrText: "Moderate positive correlation of 0.66"
+                },
+                {
+                    id: "hindi-chart",
+                    data: hindiData,
+                    xLabel: "Hindi Speaking Population (%)",
+                    corrText: "Weak negative correlation of -0.10"
+                }
+            ];
+
+            charts.forEach(chart => {
+                const svg = d3.select(`#${chart.id}`)
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Scales
+                const x = d3.scaleLinear()
+                    .domain([0, d3.max(chart.data, d => d.Percent)])
+                    .range([0, width]);
+
+                const y = d3.scaleLinear()
+                    .domain([0.5, d3.max(chart.data, d => d.HDI)])
+                    .range([height, 0]);
+
+                const r = d3.scaleSqrt()
+                    .domain([0, d3.max(chart.data, d => d.Population)])
+                    .range([3, 25]);
+
+                // X Axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(x).tickFormat(d => `${d}%`))
+                    .selectAll("text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", ".15em")
+                    .attr("transform", "rotate(-45)");
+
+                // Y Axis
+                svg.append("g")
+                    .call(d3.axisLeft(y).ticks(8, ".2f"));
+
+                // Axis labels
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", height + margin.bottom - 10)
+                    .style("text-anchor", "middle")
+                    .text(chart.xLabel);
+
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", -margin.left - 40)
+                    .attr("x", -height/2)
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("HDI");
+
+                // Trend line calculation
+                const regression = (data) => {
+                    const n = data.length;
+                    const sumX = d3.sum(data, d => d.Percent);
+                    const sumY = d3.sum(data, d => d.HDI);
+                    const sumXY = d3.sum(data, d => d.Percent * d.HDI);
+                    const sumX2 = d3.sum(data, d => d.Percent ** 2);
+                    
+                    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX ** 2);
+                    const intercept = (sumY - slope * sumX) / n;
+                    
+                    return { slope, intercept };
+                };
+
+                const trend = regression(chart.data);
+                svg.append("line")
+                    .attr("class", "trend-line")
+                    .attr("x1", x.range()[0])
+                    .attr("x2", x.range()[1])
+                    .attr("y1", y(trend.slope * x.domain()[0] + trend.intercept))
+                    .attr("y2", y(trend.slope * x.domain()[1] + trend.intercept));
+
+                // Correlation text
+                svg.append("text")
+                    .attr("class", "corr-text")
+                    .attr("x", width - 10)
+                    .attr("y", 30)
+                    .text(chart.corrText);
+
+                // Dots
+                const dots = svg.selectAll(".dot")
+                    .data(chart.data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "dot")
+                    .attr("cx", d => x(d.Percent))
+                    .attr("cy", d => y(d.HDI))
+                    .attr("r", d => r(d.Population))
+                    .style("fill", d => regionColors[d.Region] || "#666")
+                    .style("opacity", 0.8)
+                    .on("mouseover", (event, d) => {
+                        d3.select(".tooltip")
+                            .style("display", "block")
+                            .html(`${d["State/UT"]}<br>
+                                ${chart.xLabel.split(' ')[0]}: ${d.Percent.toFixed(1)}%<br>
+                                HDI: ${d.HDI.toFixed(3)}<br>
+                                Population: ${d.Population.toFixed(1)}M`)
+                            .style("left", (event.pageX + 15) + "px")
+                            .style("top", (event.pageY - 35) + "px");
+                    })
+                    .on("mouseout", () => d3.select(".tooltip").style("display", "none"));
+
+                // Store for updates
+                chart.svg = svg;
+                chart.dots = dots;
+                chart.x = x;
+                chart.y = y;
+                chart.r = r;
+            });
+
+            // Update function
+            const updateCharts = (region) => {
+                charts.forEach(chart => {
+                    chart.dots.transition()
+                        .duration(500)
+                        .style("opacity", d => 
+                            region === "All" || d.Region === region ? 0.8 : 0.2
+                        )
+                        .style("fill", d => {
+                            if (region === "All") return regionColors[d.Region];
+                            return d.Region === region ? regionColors[d.Region] : "#ccc";
+                        });
+                });
+            };
+
+            // Button handlers
+            d3.selectAll("button").on("click", function() {
+                d3.selectAll("button").classed("active", false);
+                d3.select(this).classed("active", true);
+                updateCharts(this.dataset.region);
+            });
+        });
+    </script>
+</body>
+</html>
